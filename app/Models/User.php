@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class);
     }
+    public function feed()
+    {
+        return $this->tickets()
+                    ->orderBy('created_at', 'desc');
+    }
 }

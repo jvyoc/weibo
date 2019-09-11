@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ticket;
+use Auth;
 
 class TicketsController extends Controller
 {
@@ -21,7 +23,7 @@ class TicketsController extends Controller
         Auth::user()->tickets()->create([
             'content' => $request['content'],
             'prio'=> $request['prio'],
-            'status' => $request['status']
+            'status' => $request['status'],
         ]);
          session()->flash('success', '发布成功！');
         return redirect()->back();
