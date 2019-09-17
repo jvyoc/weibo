@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Ticket;
+use Illuminate\Support\Facades\DB;
 use Auth;
+use Response;
 
 class UsersController extends Controller
 {
@@ -29,10 +32,28 @@ class UsersController extends Controller
     public function show(User $user)
     {
         $tickets = $user->tickets()
-        			->orderBy('created_at', 'desc')
-        			->paginate(10);
+        		->orderBy('created_at', 'desc')
+        		->paginate(10);
+        
+       return view('users.show', compact('user', 'tickets'));
+     
+    }
+    public function getJson()
+    {
+           $tickets = DB::select('select content, prio, status, user_id from tickets');
+          
+        return Response::json( ['data' => $tickets]);
 
-        return view('users.show', compact('user', 'tickets'));
+
+    }
+
+    public function getUserTickets(User $user)
+    {
+        $tickets = $user->tickets()
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);                    
+        echo json_encode($tickets);
+
     }
 
     public function store(Request $request)
