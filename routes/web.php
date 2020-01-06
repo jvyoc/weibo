@@ -26,4 +26,6 @@ Route::resource ('tickets', 'TicketsController', ['only'=>['store','destroy']]);
 Route::resource ('tickets', 'TicketsController');
 //Route::get('/getUserTickets/{id}','UsersController@getUserTickets');
 Route::get('getJson',  'UsersController@getJson')->name('getJson');
+Route::get('queryAllTickets','UsersController@queryAllTickets')->name('queryAllTickets');
+Route::get('queryUserTickets/{user}','UsersController@queryUserTickets')->name('queryUserTickets');
 //Route::get('echarts', 'EchartsController@firstShow');

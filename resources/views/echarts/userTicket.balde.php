@@ -35,11 +35,17 @@
   </script>
 </head>
 <body>
+<div class="container">
+<div class="row">
 	<div id="main" style="position: relative; left:6%; width: 25%;height:300px; float:left; display:inline"></div>
 	<div id="main2" style="position: relative; left:13%;width: 25%;height:300px;float:left; display:inline"></div>
 	<div id="main3" style="position: relative; left:20%;width: 25%;height:300px;float:left; display:inline"></div>
 	<input type="text" id="AjaxData" hidden> 
-	 <div w3-include-html="echartsTest3.html"></div> 
+	
+<div>
+</div>
+
+
 	<table id="divCollapse" class="display" style="width:0">
 					<thead>
 						<tr>

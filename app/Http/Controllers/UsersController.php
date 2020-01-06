@@ -33,26 +33,41 @@ class UsersController extends Controller
     {
         $tickets = $user->tickets()
         		->orderBy('created_at', 'desc')
-        		->paginate(10);
+        		->paginate(5);
         
-       return view('users.show', compact('user', 'tickets'));
-     
+         return view('users.show', compact('user', 'tickets'));
+        
     }
     public function getJson()
     {
-           $tickets = DB::select('select content, prio, status, user_id from tickets');
+        $tickets = DB::select('select content, prio, status, user from tickets');
           
         return Response::json( ['data' => $tickets]);
 
 
     }
-
-    public function getUserTickets(User $user)
+    public function queryAllTickets()
     {
-        $tickets = $user->tickets()
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(10);                    
-        echo json_encode($tickets);
+        $tickets_user = DB::select('select user_id, count(*) as amount from tickets group by user_id'); 
+        $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio'); 
+        $tickets_status = DB::select('select status, count(*) as amount from tickets group by status');   
+
+       return Response::json( ['dataTicketEmployee' => $tickets_user, 
+                                'dataTicketPrio' => $tickets_prio,
+                               'dataTicketStatus' => $tickets_status
+                            ]);
+    }
+
+    public function queryUserTickets(User $user)
+    {
+       $thisID = $user->id;
+        
+       $tickets_prio = DB::select("select prio, count(*) as amount from tickets where user_id = '$thisID' group by prio");  
+       $tickets_status = DB::select("select status, count(*) as amount from tickets where  user_id = '$thisID' group by status"); 
+
+        echo json_encode(['dataTicketPrio' => $tickets_prio,
+                          'dataTicketStatus' => $tickets_status
+    ]);
 
     }
 
@@ -100,6 +115,12 @@ class UsersController extends Controller
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user->id);
+    }
+
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
 	

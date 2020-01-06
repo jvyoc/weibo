@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -17,6 +17,8 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+	$date_time = $faker->date.' '.$faker->time;
+	static $password;
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
