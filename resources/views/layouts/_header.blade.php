@@ -1,5 +1,6 @@
+<div class="container ">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container ">
+
     <a class="navbar-brand" href="{{ route('home') }}">Ticket Management App</a>
     <ul class="navbar-nav justify-content-end">
       @if (Auth::check())
@@ -27,5 +28,5 @@
         <li class="nav-item" ><a class="nav-link" href="{{ route('login') }}">Login</a></li>
       @endif
     </ul>
+    </nav>
   </div>
-</nav>
