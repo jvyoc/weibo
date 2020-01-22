@@ -3,9 +3,11 @@
 
 @section('content')
 @include('users._initial_css_js')
+  <!-- Single User Tickets -->
+  <!-- @include('users._SingleUserTicketsCharts',['user' => $user]) -->
 
-  @include('users._SingleUserTicketsCharts',['user' => $user])
- <!--  @include('users._ticketsCharts') -->
+ <!-- All tickets -->
+  @include('users._ticketsCharts')
 
  <div class="row">
   <div class="offset-md-2 col-md-8">
@@ -30,6 +32,6 @@
 </div>
 
 
- 
+
 
 @stop

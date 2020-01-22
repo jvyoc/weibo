@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
-        <div id="main" class="content col-12 col-lg-4 col-md-6 col-sm-6" style="position: relative; left:0%; width: 100%;height:400px; float:center; display:inline"></div>
-        <div id="main2" class="content col-12 col-lg-4 col-md-6 col-sm-6" style="position: relative; left:0%; width: 100%;height:400px; float:center; display:inline"></div>
-        <div id="main3" class="content col-12 col-lg-4 col-md-6 col-sm-6" style="position: relative; left:0%; width: 100%;height:400px; float:center; display:inline"></div>
-        <input type="text" id="AjaxData" hidden> 
+        <div id="main" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <div id="main2" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <div id="main3" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <input type="text" id="AjaxData" hidden>
     </div>
 
 </div>
@@ -13,9 +13,9 @@
     var myChart = echarts.init(document.getElementById('main'));
     var myChart2 = echarts.init(document.getElementById('main2'));
     var myChart3 = echarts.init(document.getElementById('main3'));
-    
+
     var data;
-     
+
     $.ajax({
         url: "{{url('queryAllTickets')}}",
         dataType: 'json',
@@ -23,18 +23,18 @@
         success: function (msg){
         $("#AjaxData").data(msg);
         data = msg;
-        
+
         }
     });
-    
+
    var myData = genData(data.dataTicketEmployee,'user');
    var myData2 = genData(data.dataTicketPrio,'prio');
    console.log(myData2);
    var myData3 = genData(data.dataTicketStatus,'status');
-                              
+
   // console.log(data);
   //console.log(data.dataTicketEmployee);
-    
+
     option = {
     title : {
         padding: 15,
@@ -42,7 +42,7 @@
         x:'center'
         },
 
-    tooltip: {      
+    tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
@@ -50,9 +50,9 @@
         orient: 'horizontal',
         x: 'center',
         y: 'bottom',
-        data: myData.seriesData.name, 
+        data: myData.seriesData.name,
         formatter: function (params) {
- 
+
           for (var i = 0; i < option.series[0].data.length ; i++) {
               if (option.series[0].data[i].name == params) {
                  return params +": "+ option.series[0].data[i].value;
@@ -72,7 +72,7 @@
             avoidLabelOverlap: false,
             label: {
                 normal: {
-                            show: false,
+                            show: true,
                             position: 'inner',
                             formatter: '{d}',
                             fontSize: 10
@@ -92,7 +92,7 @@
             },
             data:myData.seriesData,
         }
-    ] 
+    ]
 };
 
         option2 = {
@@ -101,7 +101,7 @@
         text: 'Tickets/Prios',
         x:'center'
         },
-    tooltip: {      
+    tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
@@ -111,14 +111,14 @@
         y: 'bottom',
         data: myData2.seriesData.name,
         formatter: function (params) {
- 
+
           for (var i = 0; i < option2.series[0].data.length; i++) {
               if (option2.series[0].data[i].name == params) {
                  return params +": "+ option2.series[0].data[i].value;
               }
           }
         }
-        
+
     },
     series: [
         {
@@ -151,17 +151,17 @@
     ]
 };
 
-   
+
 
 function genData(arr, option) {
- 
+
     var legendData = [];
     var seriesData = [];
-   
+
     for (var i= 0; i< arr.length; i++ ) {
-    
+
     if (option == 'user') {
-        name = arr[i].user;
+        name = arr[i].name;
     }
     if (option == 'prio') {
         name = arr[i].prio;
@@ -174,7 +174,7 @@ function genData(arr, option) {
             name: name,
             value: arr[i].amount
         });
-  
+
     }
 
     return {
@@ -182,7 +182,7 @@ function genData(arr, option) {
         seriesData: seriesData,
     };
 
-   
+
 }
 
         option3 = {
@@ -191,7 +191,7 @@ function genData(arr, option) {
         text: 'Tickets/Statuses',
         x:'center'
         },
-    tooltip: {      
+    tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
@@ -208,8 +208,8 @@ function genData(arr, option) {
                  return params +": "+ option3.series[0].data[i].value;
                 }
           }
-        }        
-        
+        }
+
     },
 
     series: [
@@ -245,7 +245,7 @@ function genData(arr, option) {
 
 
 
-       
+
         myChart.setOption(option);
         window.addEventListener("resize", function(){
         myChart.resize();
@@ -260,6 +260,6 @@ function genData(arr, option) {
         window.addEventListener("resize", function(){
         myChart3.resize();
         });
-        
+
     </script>
     <br/>

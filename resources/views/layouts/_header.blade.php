@@ -1,9 +1,27 @@
 <div class="container ">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
-    <a class="navbar-brand" href="{{ route('home') }}">Ticket Management App</a>
-    <ul class="navbar-nav justify-content-end">
+    <a class="navbar-brand" href="{{ route('home') }}">Ticket Analysis</a>
+    <ul class="navbar-nav mr-auto">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary">Graphic</button>
+          <button type="button" class="btn btn-secondary">Table</button>
+        </div>
+      </ul>
+
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+     </button>
+
+    <div class = "collapse navbar-collapse" id="collapsibleNavbar">
+
+
+
+
+
+    <ul class="navbar-nav ml-auto">
       @if (Auth::check())
+
         <li class="nav-item"><a class="nav-link" href="#">Need Help</a></li>
         <li class="nav-item"><a class="nav-link" href="{{route('users.index')}}">Members</a></li>
         <li class="nav-item dropdown">
@@ -28,5 +46,7 @@
         <li class="nav-item" ><a class="nav-link" href="{{ route('login') }}">Login</a></li>
       @endif
     </ul>
+
+  </div>
     </nav>
   </div>
