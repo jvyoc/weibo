@@ -34,8 +34,8 @@ class UsersController extends Controller
         $tickets = $user->tickets()
         		->orderBy('created_at', 'desc')
         		->paginate(5);
-
-         return view('users.show', compact('user', 'tickets'));
+        dd($tickets);
+         #return view('users.show', compact('user', 'tickets'));
 
     }
     public function getJson()
