@@ -34,9 +34,9 @@ class UsersController extends Controller
         $tickets = $user->tickets()
         		->orderBy('created_at', 'desc')
         		->paginate(5);
-        return "ok";
 
-       //  return view('users.show', compact('user', 'tickets'));
+
+        return view('users.show', compact('user', 'tickets'));
 
     }
     public function getJson()
@@ -49,8 +49,11 @@ class UsersController extends Controller
     }
     public function queryAllTickets()
     {
+        //this sql doen't work in heroku clound
+       // $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
 
-        $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
+       //this sql does really work in heroku clound
+        $tickets_user = DB::select(' select count(t.id) as amount, u.name from tickets t, users u where t.user_id = u.id group by u.name');
         $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio');
         $tickets_status = DB::select('select status, count(*) as amount from tickets group by status');
 
@@ -62,7 +65,7 @@ class UsersController extends Controller
     //original backup
     /*public function queryAllTickets()
     {
-        // $tickets_user = DB::select('select user_id, count(*) as amount from tickets group by user_id');
+
         $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
         $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio');
         $tickets_status = DB::select('select status, count(*) as amount from tickets group by status');
