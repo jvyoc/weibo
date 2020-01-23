@@ -68,7 +68,7 @@
         {
             name:'Tickets/Employees',
             type:'pie',
-            radius: '50%',
+            radius: '60%',
             avoidLabelOverlap: false,
             label: {
                 normal: {
@@ -124,7 +124,7 @@
         {
             name:'Tickets/Prios',
             type:'pie',
-            radius: '50%',
+            radius: '60%',
             avoidLabelOverlap: false,
             label: {
                 normal: {
@@ -216,7 +216,7 @@ function genData(arr, option) {
         {
             name:'Tickets/Statuses',
             type:'pie',
-            radius: '50%',
+            radius: '60%',
             avoidLabelOverlap: false,
             label: {
                 normal: {
