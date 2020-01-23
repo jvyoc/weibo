@@ -34,8 +34,9 @@ class UsersController extends Controller
         $tickets = $user->tickets()
         		->orderBy('created_at', 'desc')
         		->paginate(5);
-        dd($tickets);
-         #return view('users.show', compact('user', 'tickets'));
+        return "ok";
+
+       //  return view('users.show', compact('user', 'tickets'));
 
     }
     public function getJson()
@@ -48,6 +49,18 @@ class UsersController extends Controller
     }
     public function queryAllTickets()
     {
+        $tickets_user = DB::select('select user_id, count(*) as amount from tickets group by user_id');
+        $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio');
+        $tickets_status = DB::select('select status, count(*) as amount from tickets group by status');
+
+       return Response::json( ['dataTicketEmployee' => $tickets_user,
+                                'dataTicketPrio' => $tickets_prio,
+                               'dataTicketStatus' => $tickets_status
+                            ]);
+    }
+    //original backup
+    /*public function queryAllTickets()
+    {
         // $tickets_user = DB::select('select user_id, count(*) as amount from tickets group by user_id');
         $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
         $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio');
@@ -57,7 +70,7 @@ class UsersController extends Controller
                                 'dataTicketPrio' => $tickets_prio,
                                'dataTicketStatus' => $tickets_status
                             ]);
-    }
+    }*/
 
     public function queryUserTickets(User $user)
     {
