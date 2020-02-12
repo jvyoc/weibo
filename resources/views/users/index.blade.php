@@ -21,16 +21,20 @@
         <td class="col">{{ $user->name }} </td>
          <td class="col">lastname </td>
         <td class="col">
-          
+
         <a href="#">
           {{ $user->email }}
         </a>
         </td>
         <td class="col">123</td>
-       </tr> 
+       </tr>
       @endforeach
     </tbody>
 </table>
 
 </div>
+@stop
+
+@section('scripts')
+<script src="{{ mix('js/app.js') }}"></script>
 @stop

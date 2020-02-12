@@ -5,6 +5,7 @@
 @include('users._initial_css_js')
   <!-- Single User Tickets -->
   <!-- @include('users._SingleUserTicketsCharts',['user' => $user]) -->
+ @include('users._daterangepicker')
 
  <!-- All tickets -->
   @include('users._ticketsCharts')
@@ -30,8 +31,4 @@
     </section>
   </div>
 </div>
-
-
-
-
 @stop

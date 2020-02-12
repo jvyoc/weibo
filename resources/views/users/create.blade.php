@@ -8,7 +8,7 @@
       <h5>注册</h5>
     </div>
     <div class="card-body">
-    	
+
 	@include('shared._errors')
 
 
@@ -40,4 +40,8 @@
     </div>
   </div>
 </div>
+@stop
+
+@section('scripts')
+<script src="{{ mix('js/app.js') }}"></script>
 @stop

@@ -29,3 +29,6 @@ Route::get('getJson',  'UsersController@getJson')->name('getJson');
 Route::get('queryAllTickets','UsersController@queryAllTickets')->name('queryAllTickets');
 Route::get('queryUserTickets/{user}','UsersController@queryUserTickets')->name('queryUserTickets');
 //Route::get('echarts', 'EchartsController@firstShow');
+Route::get('datepicker', function () {
+    return view('users._daterangepicker');
+});
