@@ -2,12 +2,12 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
     <a class="navbar-brand" href="{{ route('home') }}">Ticket Analysis</a>
-    <ul class="navbar-nav mr-auto">
+   <!--  <ul class="navbar-nav mr-auto">
         <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-secondary">Graphic</button>
           <button type="button" class="btn btn-secondary">Table</button>
         </div>
-      </ul>
+      </ul> -->
 
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>

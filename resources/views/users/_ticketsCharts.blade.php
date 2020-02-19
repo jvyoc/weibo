@@ -1,8 +1,9 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="container">
     <div class="row">
-        <div id="main" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
-        <div id="main2" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
-        <div id="main3" class="content col-12 col-lg-6 col-md-6 col-sm-6" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <div id="main" class="content col-12 col-lg-4 col-md-6 col-sm-12" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <div id="main2" class="content col-12 col-lg-4 col-md-6 col-sm-12" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
+        <div id="main3" class="content col-12 col-lg-4 col-md-6 col-sm-12" style="position: relative; left:0%; width: 50%;height:400px; float:center; display:inline"></div>
         <input type="text" id="AjaxData" hidden>
     </div>
 
@@ -10,14 +11,21 @@
 
 
 <script>
-    var myChart = echarts.init(document.getElementById('main'));
-    var myChart2 = echarts.init(document.getElementById('main2'));
-    var myChart3 = echarts.init(document.getElementById('main3'));
 
-    var data;
+var data;
+var startTmp;
+var endTmp;
 
-    $.ajax({
+//end = 1262217600
+//fetchData();
+//drawGraphic(data);
+
+function fetchData()
+{
+      var tmpData;
+      $.ajax({
         url: "{{url('queryAllTickets')}}",
+        data: { "start":startTmp, "end":endTmp},
         dataType: 'json',
         async: false,
         success: function (msg){
@@ -26,10 +34,19 @@
 
         }
     });
+     //return tmpData;
+}
+
+function drawGraphic(data)
+  {
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart3 = echarts.init(document.getElementById('main3'));
+
+
 
    var myData = genData(data.dataTicketEmployee,'user');
    var myData2 = genData(data.dataTicketPrio,'prio');
-   console.log(myData2);
    var myData3 = genData(data.dataTicketStatus,'status');
 
   // console.log(data);
@@ -153,37 +170,7 @@
 
 
 
-function genData(arr, option) {
 
-    var legendData = [];
-    var seriesData = [];
-
-    for (var i= 0; i< arr.length; i++ ) {
-
-    if (option == 'user') {
-        name = arr[i].name;
-    }
-    if (option == 'prio') {
-        name = arr[i].prio;
-    }
-    if (option == 'status') {
-        name = arr[i].status;
-        }
-        legendData.push(name);
-        seriesData.push({
-            name: name,
-            value: arr[i].amount
-        });
-
-    }
-
-    return {
-        legendData: legendData,
-        seriesData: seriesData,
-    };
-
-
-}
 
         option3 = {
     title : {
@@ -260,6 +247,68 @@ function genData(arr, option) {
         window.addEventListener("resize", function(){
         myChart3.resize();
         });
+}
+    function genData(arr, option) {
 
+    var legendData = [];
+    var seriesData = [];
+
+    for (var i= 0; i< arr.length; i++ ) {
+
+    if (option == 'user') {
+        name = arr[i].name;
+    }
+    if (option == 'prio') {
+        name = arr[i].prio;
+    }
+    if (option == 'status') {
+        name = arr[i].status;
+        }
+        legendData.push(name);
+        seriesData.push({
+            name: name,
+            value: arr[i].amount
+        });
+
+    }
+
+    return {
+        legendData: legendData,
+        seriesData: seriesData,
+    };
+
+
+}
+
+    function refreshData(startTmp, endTmp){
+
+     console.log("call refresh");
+     console.log("start:" + startTmp);
+     console.log("end:" + endTmp);
+     var dataUpdated;
+
+    $.ajax({
+        //type: "POST",
+        //url: "{{route('queryAllTickets')}}/" + startTmp + "/" + endTmp,
+        url: "{{url('queryAllTickets')}}",
+        dataType: 'json',
+        data: { "start": startTmp, "end":endTmp},
+        beforeSend: function(jqXHR, settings) {
+        console.log(settings.url);
+        },
+        success: function (msg){
+        $("#AjaxData").data(msg);
+        dataUpdated = msg;
+
+        }
+
+    });
+    console.log(dataUpdated);
+
+     //更新数据
+      /*var option = myChart.getOption();
+      option.series[0].data = data;
+      myChart.setOption(option);*/
+}
     </script>
     <br/>

@@ -47,7 +47,44 @@ class UsersController extends Controller
 
 
     }
-    public function queryAllTickets()
+    //public function queryAllTickets(Request $request)
+    public function queryAllTickets(Request $request)
+    {
+        //this sql doen't work in heroku clound
+       // $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
+
+       //this sql does really work in heroku clound
+        $start = $request->input('start');
+        $end = $request->input('end');
+
+       // $tickets_user = DB::select('select count(t.id) as amount, u.name from tickets t, users u where t.user_id = u.id group by u.name');
+        $tickets_user_SQL = 'SELECT  count(t.id) as amount, u.name ';
+        $tickets_user_SQL .=  'from tickets t, users u ';
+        $tickets_user_SQL .=  'WHERE (t.created_at BETWEEN FROM_UNIXTIME(' . $start . ') AND FROM_UNIXTIME (' . $end .') AND t.user_id = u.id) ';
+        $tickets_user_SQL .= 'group by u.name';
+       $tickets_user = DB::select($tickets_user_SQL);
+
+
+       $tickets_prioSQL = "select prio, count(*) as amount from tickets WHERE created_at BETWEEN FROM_UNIXTIME($start) AND FROM_UNIXTIME ($end) group by prio";
+        $tickets_prio = DB::select($tickets_prioSQL);
+
+
+        $tickets_statusSQL = "select status, count(*) as amount from tickets WHERE created_at BETWEEN FROM_UNIXTIME($start) AND FROM_UNIXTIME ($end) group by status";
+        $tickets_status = DB::select($tickets_statusSQL);
+       /* $start = $request->input('start');
+        $end = $request->input('end');
+*/
+
+
+       return Response::json(  ['dataTicketEmployee' => $tickets_user,
+                                'dataTicketPrio' => $tickets_prio,
+                               'dataTicketStatus' => $tickets_status
+                               /*'start' => $start,
+                               'end' => $end*/
+                            ]);
+    }
+
+    public function queryAllTicketsPost(Request $request)
     {
         //this sql doen't work in heroku clound
        // $tickets_user = DB::select('SELECT t.user_id, u.name, count(*) as amount from tickets t,users u WHERE t.user_id = u.id group by user_id');
@@ -57,10 +94,15 @@ class UsersController extends Controller
         $tickets_prio = DB::select('select prio, count(*) as amount from tickets group by prio');
         $tickets_status = DB::select('select status, count(*) as amount from tickets group by status');
 
-       return Response::json( ['dataTicketEmployee' => $tickets_user,
+        $start = $request->route('start');
+        $end = $request->route('end');
+        echo  "OK";
+       /*return Response::json( ['start' =>$start,
+                                'end' =>$end,
+        'dataTicketEmployee' => $tickets_user,
                                 'dataTicketPrio' => $tickets_prio,
                                'dataTicketStatus' => $tickets_status
-                            ]);
+                            ]);*/
     }
     //original backup
     /*public function queryAllTickets()

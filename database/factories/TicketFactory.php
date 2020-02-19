@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 $factory->define(Ticket::class, function (Faker $faker) {
-	$date_time = $faker->date.' '.$faker->time;
+	$date_time = $faker->dateTimeBetween('-30 days', '+30 days');
 	$prios = ['low','normal','high'];
     $statuses =['0%','25%','50%','75%','100%'];
     return [

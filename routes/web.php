@@ -26,9 +26,15 @@ Route::resource ('tickets', 'TicketsController', ['only'=>['store','destroy']]);
 Route::resource ('tickets', 'TicketsController');
 //Route::get('/getUserTickets/{id}','UsersController@getUserTickets');
 Route::get('getJson',  'UsersController@getJson')->name('getJson');
-Route::get('queryAllTickets','UsersController@queryAllTickets')->name('queryAllTickets');
-Route::get('queryUserTickets/{user}','UsersController@queryUserTickets')->name('queryUserTickets');
+Route::get('queryAllTickets','UsersController@queryAllTickets') ->name('queryAllTickets');
+//Route::get('queryAllTickets/{start}/{end}','UsersController@queryAllTickets');
+//Route::post('queryAllTickets', 'UsersController@queryAllTicketsPost');
+Route::get('queryUserTickets','UsersController@queryUserTickets')->name('queryUserTickets');
 //Route::get('echarts', 'EchartsController@firstShow');
 Route::get('datepicker', function () {
     return view('users._daterangepicker');
+});
+Route::get('showOld', function(){
+
+    return view ('users.showOld');
 });
