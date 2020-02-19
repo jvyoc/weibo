@@ -30,11 +30,8 @@ $(function() {
         startTmp = start.unix();
         endTmp = end.unix();
         fetchData();
-        //console.log(data.dataTicketEmployee.length);
-        if (data.dataTicketEmployee.length > 0)
-        {
-           drawGraphic(data);
-        };
+        drawGraphic(data);
+
 
 
 
