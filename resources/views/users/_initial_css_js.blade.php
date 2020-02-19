@@ -9,3 +9,6 @@
     <!-- <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}"> -->
     <script src="{{URL::asset('js/echarts.min.js')}}"></script>
     <!-- <script src="{{URL::asset('js/bootstrap.min.js')}}"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
