@@ -24,9 +24,7 @@
 
 <script>
 
-var data;
-var startTmp;
-var endTmp;
+
 
 //end = 1262217600
 //fetchData();
@@ -49,8 +47,24 @@ function fetchData()
      //return tmpData;
 }
 
-function drawGraphic()
+function drawGraphic(startTmp, endTmp)
   {
+    var data;
+   // var startTmp;
+   // var endTmp;
+
+$.ajax({
+        url: "{{url('queryAllTickets')}}",
+        data: { "start":startTmp, "end":endTmp},
+        dataType: 'json',
+        async: false,
+        success: function (msg){
+        $("#AjaxData").data(msg);
+        data = msg;
+
+        }
+    });
+
     var myChart = echarts.init(document.getElementById('main'));
     var myChart2 = echarts.init(document.getElementById('main2'));
     var myChart3 = echarts.init(document.getElementById('main3'));
@@ -335,11 +349,11 @@ $(function() {
 
     function cb(start, end) {
         $('#reportrange span').html('from ' + start.format('DD.MM.YYYY') + ' to ' + end.format('DD.MM.YYYY'));
-        startTmp = start.unix();
-        endTmp = end.unix();
-        fetchData();
-        drawGraphic();
 
+       var startTmp = start.unix();
+        var endTmp = end.unix();
+
+        drawGraphic(startTmp, endTmp);
 
 
 
@@ -350,6 +364,7 @@ $(function() {
         startDate: start,
         endDate: end,
         ranges: {
+
            'Today': [moment(), moment()],
            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
@@ -362,6 +377,7 @@ $(function() {
     cb(start, end);
    // startTmp = 946684800;
     //endTmp = 1262217600;
+
 
 
 
