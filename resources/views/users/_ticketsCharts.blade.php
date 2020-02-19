@@ -37,7 +37,7 @@ function fetchData()
      //return tmpData;
 }
 
-function drawGraphic(data)
+function drawGraphic()
   {
     var myChart = echarts.init(document.getElementById('main'));
     var myChart2 = echarts.init(document.getElementById('main2'));

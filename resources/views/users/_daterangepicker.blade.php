@@ -30,7 +30,7 @@ $(function() {
         startTmp = start.unix();
         endTmp = end.unix();
         fetchData();
-        drawGraphic(data);
+        drawGraphic();
 
 
 
