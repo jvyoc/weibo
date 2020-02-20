@@ -53,6 +53,7 @@ function drawGraphic(startTmp, endTmp)
    // var startTmp;
    // var endTmp;
 
+
 $.ajax({
         url: "{{url('queryAllTickets')}}",
         data: { "start":startTmp, "end":endTmp},
@@ -339,8 +340,9 @@ $.ajax({
     </script>
 
 
-    <script>
 
+<script>
+//this is the block for datepicker
 
 $(function() {
 
@@ -350,9 +352,11 @@ $(function() {
     function cb(start, end) {
         $('#reportrange span').html('from ' + start.format('DD.MM.YYYY') + ' to ' + end.format('DD.MM.YYYY'));
 
-       var startTmp = start.unix();
-        var endTmp = end.unix();
+       var startTmp = start.format('YYYY-MM-DD HH:mm:ss') ;
+        var endTmp = end.format('YYYY-MM-DD HH:mm:ss');
 
+        console.log(startTmp);
+        console.log(endTmp);
         drawGraphic(startTmp, endTmp);
 
 

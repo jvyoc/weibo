@@ -60,16 +60,21 @@ class UsersController extends Controller
        // $tickets_user = DB::select('select count(t.id) as amount, u.name from tickets t, users u where t.user_id = u.id group by u.name');
         $tickets_user_SQL = 'SELECT  count(t.id) as amount, u.name ';
         $tickets_user_SQL .=  'from tickets t, users u ';
-        $tickets_user_SQL .=  'WHERE (t.created_at BETWEEN FROM_UNIXTIME(' . $start . ') AND FROM_UNIXTIME (' . $end .') AND t.user_id = u.id) ';
+        $tickets_user_SQL .=  'WHERE (t.created_at BETWEEN ' . $start . ' AND ' . $end .' AND t.user_id = u.id) ';
         $tickets_user_SQL .= 'group by u.name';
-       $tickets_user = DB::select($tickets_user_SQL);
+
+        $tickets_user_SQL = "SELECT  count(t.id) as amount, u.name from tickets t, users u WHERE t.created_at BETWEEN '$start' AND '$end' AND t.user_id = u.id group by u.name";
+
+      $tickets_user = DB::select($tickets_user_SQL);
 
 
-       $tickets_prioSQL = "select prio, count(*) as amount from tickets WHERE created_at BETWEEN FROM_UNIXTIME($start) AND FROM_UNIXTIME ($end) group by prio";
+       $tickets_prioSQL = "select prio, count(*) as amount from tickets WHERE created_at BETWEEN '$start' AND '$end' group by prio";
+
         $tickets_prio = DB::select($tickets_prioSQL);
 
 
-        $tickets_statusSQL = "select status, count(*) as amount from tickets WHERE created_at BETWEEN FROM_UNIXTIME($start) AND FROM_UNIXTIME ($end) group by status";
+        $tickets_statusSQL = "select status, count(*) as amount from tickets WHERE created_at BETWEEN '$start' AND '$end' group by status";
+
         $tickets_status = DB::select($tickets_statusSQL);
        /* $start = $request->input('start');
         $end = $request->input('end');
