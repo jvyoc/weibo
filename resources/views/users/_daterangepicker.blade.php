@@ -1,9 +1,4 @@
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
 <div class="container">
   <div class="row">
 
@@ -16,10 +11,9 @@
     <span></span> <i class="fa fa-caret-down"></i>
   </div>
 </div>
-</div>
 
-<script type="text/javascript">
-
+<script>
+//this is the block for datepicker
 
 $(function() {
 
@@ -28,11 +22,13 @@ $(function() {
 
     function cb(start, end) {
         $('#reportrange span').html('from ' + start.format('DD.MM.YYYY') + ' to ' + end.format('DD.MM.YYYY'));
-        startTmp = start.unix();
-        endTmp = end.unix();
-        fetchData();
-        drawGraphic();
 
+       var startTmp = start.format('YYYY-MM-DD HH:mm:ss') ;
+        var endTmp = end.format('YYYY-MM-DD HH:mm:ss');
+
+        console.log(startTmp);
+        console.log(endTmp);
+        drawGraphic(startTmp, endTmp);
 
 
 
@@ -43,6 +39,7 @@ $(function() {
         startDate: start,
         endDate: end,
         ranges: {
+
            'Today': [moment(), moment()],
            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
@@ -55,6 +52,7 @@ $(function() {
     cb(start, end);
    // startTmp = 946684800;
     //endTmp = 1262217600;
+
 
 
 
