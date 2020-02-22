@@ -38,3 +38,8 @@ Route::get('showOld', function(){
 
     return view ('users.showOld');
 });
+
+Route::get('showTable', function(){
+
+    return view ('users.showTable');
+});

@@ -8,9 +8,9 @@
 
 @include('layouts._header')
 
-<div class="container">
+<div class="container-fluid">
 
-    <div class="offset-md-1 col-md-10">
+    <div class="col-md-12">
         @include('shared._messages')
         @yield('content')
         @include('layouts._footer')

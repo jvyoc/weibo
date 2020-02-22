@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
     <a class="navbar-brand" href="{{ route('home') }}">Ticket Analysis</a>

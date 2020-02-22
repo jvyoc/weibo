@@ -3,8 +3,8 @@
   <div class="row">
 
   <div class="btn-group col-6 col-lg-6 col-md-6 col-sm-6" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary">Graphic</button>
-          <button type="button" class="btn btn-secondary">Table</button>
+          <button type="button" class="btn btn-secondary">Team View</button>
+          <button type="button" class="btn btn-secondary">Personal View</button>
   </div>
   <div id="reportrange" class="content col-6 col-lg-6 col-md-6 col-sm-6" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
     <i class="fa fa-calendar"></i>&nbsp;
