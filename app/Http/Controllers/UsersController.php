@@ -39,12 +39,28 @@ class UsersController extends Controller
         return view('users.show', compact('user', 'tickets'));
 
     }
-    public function getJson()
+    public function getJson(Request $request)
     {
-        $tickets = DB::select('select content, prio, status, user from tickets');
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $filter = $request->input('filterTerm');
 
-        return Response::json( ['data' => $tickets]);
+        $filterSQL = "select t.content, t.prio, t.created_at, t.status, t.user_id, u.name from tickets t, users u WHERE  t.created_at BETWEEN '$start' AND '$end' AND prio = '$filter' AND t.user_id = u.id ";
+        $tickets_filtered = DB::select($filterSQL);
 
+        return Response::json( ['data' => $tickets_filtered]);
+
+
+    }
+    public function filteringTickets(Request $request)
+    {
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $filter = $request->input('name');
+
+        $filterSQL = "select * from tickets WHERE created_at BETWEEN '$start' AND '$end' AND prio = '$filter'";
+        $tickets_filtered = DB::select($filterSQL);
+        return Response::json( ['filteredData' =>  $tickets_filtered]);
 
     }
     //public function queryAllTickets(Request $request)
@@ -108,7 +124,8 @@ class UsersController extends Controller
                             ]);
     }*/
 
-    public function queryUserTickets(User $user)
+
+   public function queryUserTickets(User $user)
     {
        $thisID = $user->id;
 

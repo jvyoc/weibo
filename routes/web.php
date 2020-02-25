@@ -30,6 +30,7 @@ Route::get('queryAllTickets','UsersController@queryAllTickets') ->name('queryAll
 //Route::get('queryAllTickets/{start}/{end}','UsersController@queryAllTickets');
 //Route::post('queryAllTickets', 'UsersController@queryAllTicketsPost');
 Route::get('queryUserTickets','UsersController@queryUserTickets')->name('queryUserTickets');
+Route::get('filteringTickets','UsersController@filteringTickets')->name('filteringTickets');
 //Route::get('echarts', 'EchartsController@firstShow');
 Route::get('datepicker', function () {
     return view('users._daterangepicker');

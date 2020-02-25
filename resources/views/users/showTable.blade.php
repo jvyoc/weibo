@@ -7,6 +7,6 @@
 
   @include('users._initial_css_js')
   @include('users._daterangepicker')
-  @include('users._ticketsTable')
+  @include('users._ticketsDataTables')
 
 @stop

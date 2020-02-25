@@ -6,7 +6,7 @@
           <button type="button" class="btn btn-secondary">Team View</button>
           <button type="button" class="btn btn-secondary">Personal View</button>
   </div>
-  <div id="reportrange" class="content col-6 col-lg-6 col-md-6 col-sm-6" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+  <div id="reportrange" class="content col-5 col-lg-6 col-md-5 col-sm-5" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 60%">
     <i class="fa fa-calendar"></i>&nbsp;
     <span></span> <i class="fa fa-caret-down"></i>
   </div>

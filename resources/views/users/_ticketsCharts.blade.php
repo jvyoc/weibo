@@ -8,6 +8,7 @@
 
 </div>
 
+
 <script>
 
 function fetchData()
@@ -27,9 +28,13 @@ function fetchData()
      //return tmpData;
 }
 
+
 function drawGraphic(startTmp, endTmp)
   {
+
     var data;
+    startTime = startTmp;
+    endTime = endTmp;
     $.ajax({
         url: "{{url('queryAllTickets')}}",
         data: { "start":startTmp, "end":endTmp},
@@ -46,7 +51,62 @@ function drawGraphic(startTmp, endTmp)
     var myChart2 = echarts.init(document.getElementById('main2'));
     var myChart3 = echarts.init(document.getElementById('main3'));
 
+    // 处理点击事件并且跳转到相应的开始
+    myChart.on('click', function (params) {
+      alert(params.name);
+      //updateTableView(startTmp, endTmp, params.name);
 
+     /*$.ajax({
+        url: "{{url('filteringTickets')}}",
+        data: { "start":startTmp, "end":endTmp, "name": params.name},
+        dataType: 'json',
+        async: false,
+        success: function (msg){
+
+        dataSet = msg;
+
+        }
+    });*/
+    $('#example').DataTable( {
+        "ajax": {
+          url: "{{route('getJson')}}",
+          data: { "start":startTmp, "end":endTmp, "filterTerm":params.name },
+          dataType: 'json'
+         },
+        columns:[
+         {data: 'name'},
+        {data: 'content'},
+        {data: 'prio'},
+        {data: 'status'}
+
+        ]
+
+    } );
+
+
+
+
+
+
+
+
+
+    });
+
+    // 处理点击事件并且跳转到相应的结束
+
+      //window.open('https://www.baidu.com/s?wd=');
+
+    myChart2.on('click', function (params) {
+      alert(params.name);
+     // window.open('https://www.baidu.com/s?wd=');
+    });
+
+    myChart3.on('click', function (params) {
+      alert(params.name);
+     // window.open('https://www.baidu.com/s?wd=');
+    });
+    // // 处理点击事件并且跳转到相应的结束
 
    var myData = genData(data.dataTicketEmployee,'user');
    var myData2 = genData(data.dataTicketPrio,'prio');
@@ -57,7 +117,7 @@ function drawGraphic(startTmp, endTmp)
     option = {
     title : {
         padding: 15,
-        text: 'Tickets/Employees\n',
+        text: 'Tickets/Load balancing\n',
         x:'center'
         },
 
@@ -85,7 +145,7 @@ function drawGraphic(startTmp, endTmp)
 
     series: [
         {
-            name:'Tickets/Employees',
+            name:'Tickets/load balancing',
             type:'pie',
             radius: '60%',
             avoidLabelOverlap: false,
@@ -93,8 +153,8 @@ function drawGraphic(startTmp, endTmp)
                 normal: {
                             show: true,
                             position: 'inner',
-                            formatter: '{d}',
-                            fontSize: 10
+                            formatter: '{d}%',
+                            fontSize: 12
                 },
                 emphasis: {
                     show: true,
@@ -147,10 +207,10 @@ function drawGraphic(startTmp, endTmp)
             avoidLabelOverlap: false,
             label: {
                 normal: {
-                            show: false,
+                            show: true,
                             position: 'inner',
-                            formatter: '{d}',
-                            fontSize: 10
+                            formatter: '{d}%',
+                            fontSize: 12
                 },
                 emphasis: {
                     show: true,
@@ -209,10 +269,10 @@ function drawGraphic(startTmp, endTmp)
             avoidLabelOverlap: false,
             label: {
                 normal: {
-                            show: false,
+                            show: true,
                             position: 'inner',
-                            formatter: '{d}',
-                            fontSize: 10
+                            formatter: '{d}%',
+                            fontSize: 12
                 },
                 emphasis: {
                     show: true,
@@ -235,17 +295,17 @@ function drawGraphic(startTmp, endTmp)
 
 
 
-        myChart.setOption(option);
+        myChart.setOption(option2);
         window.addEventListener("resize", function(){
         myChart.resize();
         });
 
-        myChart2.setOption(option2);
+        myChart2.setOption(option3);
         window.addEventListener("resize", function(){
         myChart2.resize();
         });
 
-        myChart3.setOption(option3);
+        myChart3.setOption(option);
         window.addEventListener("resize", function(){
         myChart3.resize();
         });
